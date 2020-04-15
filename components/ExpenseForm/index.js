@@ -15,7 +15,6 @@ export function ExpenseForm({
         style={styles.input}
         placeholder="0"
         onChangeText={text => setValue(+text)}
-        keyboardType="numeric"
       />
 
       <TextInput 

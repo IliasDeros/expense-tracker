@@ -9,7 +9,7 @@ const circleStyle = {
   flexDirection: 'column',
   justifyContent: 'space-between',
   alignItems: 'center',
-  borderRadius: '50%',
+  borderRadius: circleSize,
   borderWidth: 5,
   width: circleSize,
   height: circleSize,

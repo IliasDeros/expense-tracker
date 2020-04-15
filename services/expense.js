@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-community/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import { storageKey } from './constant'
 import { now } from './utils'
 
@@ -38,7 +38,7 @@ const expenseService = {
     const formattedExpenses = this.formatExpenses(expenses)
 
     try {
-      await AsyncStorage.setItem(key, formattedExpenses)
+      await SecureStore.setItemAsync(key, formattedExpenses)
     } catch(e) {
       alert('Error updating expenses ' + e)
     }
@@ -48,8 +48,8 @@ const expenseService = {
 
   async resetExpenses() {
     try {
-      await AsyncStorage.setItem(storageKey.partnerExpenses, [])
-      await AsyncStorage.setItem(storageKey.selfExpenses, [])
+      await SecureStore.setItemAsync(storageKey.partnerExpenses, '')
+      await SecureStore.setItemAsync(storageKey.selfExpenses, '')
     } catch(e) {
       alert('Error updating expenses ' + e)
     }
@@ -72,7 +72,7 @@ const expenseService = {
   },
 
   async getExpense(key) {
-    const expenseString = await AsyncStorage.getItem(key)
+    const expenseString = await SecureStore.getItemAsync(key)
     if (!expenseString) {
       return []
     }

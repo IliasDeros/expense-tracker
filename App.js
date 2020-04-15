@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { AppContainer } from './App.styles'
 import { expenseService } from './services/expense'
 import { 
@@ -12,7 +13,7 @@ import {
 export default function App() {
   const [partnerExpenses, setPartnerExpenses] = useState(null)
   const [selfExpenses, setSelfExpenses] = useState(null)
-  const [formValue, setFormValue] = useState()
+  const [formValue, setFormValue] = useState(0)
   const [formDescription, setFormDescription] = useState()
   const loading = !partnerExpenses || !selfExpenses
 
