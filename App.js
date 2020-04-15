@@ -51,16 +51,17 @@ export default function App() {
     setFormValue(0)
     setFormDescription('')
   }
+  
+  if (loading) {
+    return (
+      <AppContainer>
+         <Loading />
+      </AppContainer>
+    )
+  }
 
   return (
-    <AppContainer>      
-      {loading || <TotalContainer 
-        partnerExpenses={partnerExpenses}
-        selfExpenses={selfExpenses}
-      />}
-
-      {loading && <Loading />}
-
+    <AppContainer>
       <ExpenseForm 
         value={`${formValue}`}
         description={formDescription}
@@ -71,6 +72,11 @@ export default function App() {
       <ExpenseSubmit 
         submitPartner={addPartnerExpense}
         submitSelf={addSelfExpense}
+      />  
+
+      <TotalContainer 
+        partnerExpenses={partnerExpenses}
+        selfExpenses={selfExpenses}
       />
 
       <ResetButton reset={resetExpenses} />
