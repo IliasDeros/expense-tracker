@@ -13,7 +13,7 @@ import {
 export default function App() {
   const [partnerExpenses, setPartnerExpenses] = useState(null)
   const [selfExpenses, setSelfExpenses] = useState(null)
-  const [formValue, setFormValue] = useState(0)
+  const [formValue, setFormValue] = useState('')
   const [formDescription, setFormDescription] = useState()
   const loading = !partnerExpenses || !selfExpenses
 
@@ -32,16 +32,20 @@ export default function App() {
   }
 
   function addPartnerExpense() {
+    if (isNaN(formValue)) { return }    
+
     expenseService
-      .addPartnerExpense(formValue, formDescription)
+      .addPartnerExpense(+formValue, formDescription)
       .then(loadExpenses)
 
     resetForm()
   }
 
   function addSelfExpense() {
+    if (isNaN(formValue)) { return }      
+
     expenseService
-      .addSelfExpense(formValue, formDescription)
+      .addSelfExpense(+formValue, formDescription)
       .then(loadExpenses)
 
     resetForm()
@@ -63,7 +67,7 @@ export default function App() {
   return (
     <AppContainer>
       <ExpenseForm 
-        value={`${formValue}`}
+        value={formValue}
         description={formDescription}
         setValue={setFormValue}
         setDescription={setFormDescription}

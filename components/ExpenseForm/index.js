@@ -4,7 +4,6 @@ import { inputSize, styles } from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faPen, faDollarSign } from '@fortawesome/free-solid-svg-icons'
 
-
 export function ExpenseForm({
   value,
   description,
@@ -18,10 +17,9 @@ export function ExpenseForm({
         <TextInput 
           value={value}
           style={styles.input}
-          placeholder="0"
-          onChangeText={text => {
-            if (text == +text) { setValue(+text) }
-          }}
+          placeholder="0.00"
+          placeholderTextColor="gray"
+          onChangeText={setValue}
           keyboardType="numeric"
         />
       </View>
