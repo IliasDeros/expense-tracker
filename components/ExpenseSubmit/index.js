@@ -10,7 +10,7 @@ export function ExpenseSubmit({ submitPartner, submitSelf }) {
         onPress={submitSelf}
       />
       <Button 
-        title="Your partner paid"
+        title="They paid"
         onPress={submitPartner}
       />
     </Container>

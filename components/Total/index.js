@@ -8,9 +8,9 @@ import {
   NegativeText, 
   PositiveText } from './styles'
 
-const neutralTotal = "You guys are clear"
+const neutralTotal = "You guys are clear!"
 const positiveTotal = "Your partner owes you:"
-const negativeTotal = "You owe your partner"
+const negativeTotal = "You owe your partner:"
 
 export function Total({ total }) {
   let Circle = NeutralCircle
@@ -33,7 +33,7 @@ export function Total({ total }) {
   
   return <Circle>
     <TextComponent>{text}</TextComponent>
-    <StyledTotal total={display}/>
+    <StyledTotal total={display.toFixed(2)}/>
     <TextComponent>$CAD</TextComponent>
   </Circle>
 }

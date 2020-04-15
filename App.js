@@ -34,12 +34,21 @@ export default function App() {
     expenseService
       .addPartnerExpense(formValue, formDescription)
       .then(loadExpenses)
+
+    resetForm()
   }
 
   function addSelfExpense() {
     expenseService
       .addSelfExpense(formValue, formDescription)
       .then(loadExpenses)
+
+    resetForm()
+  }
+
+  function resetForm() {
+    setFormValue(0)
+    setFormDescription('')
   }
 
   return (
