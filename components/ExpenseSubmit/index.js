@@ -6,12 +6,12 @@ export function ExpenseSubmit({ submitPartner, submitSelf }) {
   return (
     <Container>
       <Button 
-        title="Submit Partner"
-        onPress={submitPartner}
+        title="You paid"
+        onPress={submitSelf}
       />
       <Button 
-        title="Submit Self"
-        onPress={submitSelf}
+        title="Your partner paid"
+        onPress={submitPartner}
       />
     </Container>
   )
