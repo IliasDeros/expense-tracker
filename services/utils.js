@@ -1,1 +1,1 @@
-export const now = () => +new Date()
+export const now = () => new Date()

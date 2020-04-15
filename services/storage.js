@@ -3,6 +3,7 @@ import { storageKey } from './constant'
 import { now } from './utils'
 
 const storageService = {
+  /** SET */
   async addExpense(value, description) {
     if (value > 0) {
       return this.addPartnerExpense(value, description)
@@ -14,26 +15,30 @@ const storageService = {
   async addPartnerExpense(value, description = '') {
     const { partnerExpenses } = await this.getExpenses()
     const newExpenses = partnerExpenses.concat(
-      [[value, description, now()]]
+      [{
+        value, description, timestamp: now()
+      }]
     )
 
-    try {
-      await AsyncStorage.setItem(storageKey.partnerExpenses, newExpenses)
-    } catch(e) {
-      alert('Error updating expenses ' + e)
-    }
-
-    return true
+    return this.setExpenses(storageKey.partnerExpenses, newExpenses)
   },
 
   async addSelfExpense(value, description = '') {
     const { selfExpenses } = await this.getExpenses()
     const newExpenses = selfExpenses.concat(
-      [[value, description, now()]]
+      [{
+        value, description, timestamp: now()
+      }]
     )
     
+    return this.setExpenses(storageKey.selfExpenses, newExpenses)
+  },
+
+  async setExpenses(key, expenses) {
+    const formattedExpenses = this.formatExpenses(expenses)
+
     try {
-      await AsyncStorage.setItem(storageKey.selfExpenses, newExpenses)
+      await AsyncStorage.setItem(key, formattedExpenses)
     } catch(e) {
       alert('Error updating expenses ' + e)
     }
@@ -41,11 +46,51 @@ const storageService = {
     return true
   },
 
+  async resetExpenses() {
+    try {
+      await AsyncStorage.setItem(storageKey.partnerExpenses, [])
+      await AsyncStorage.setItem(storageKey.selfExpenses, [])
+    } catch(e) {
+      alert('Error updating expenses ' + e)
+    }
+
+    return true
+  },
+
+  formatExpenses(expenses) {
+    return expenses.map(({ value, description, date }) => 
+      `${value},${description},${+date}`
+    ).join(';')
+  },
+
+  /** GET */
   async getExpenses() {
-    const partnerExpenses = await AsyncStorage.getItem(storageKey.partnerExpenses) || []
-    const selfExpenses = await AsyncStorage.getItem(storageKey.selfExpenses) || []
+    const partnerExpenses = await this.getExpense(storageKey.partnerExpenses)
+    const selfExpenses = await this.getExpense(storageKey.selfExpenses)
 
     return { partnerExpenses, selfExpenses }
+  },
+
+  async getExpense(key) {
+    const expenseString = await AsyncStorage.getItem(key)
+    if (!expenseString) {
+      return []
+    }
+
+    const expense = this.parseExpense(expenseString)
+
+    return expense
+  },
+
+  parseExpense(stored) {
+    return stored.split(';').map(expense => {
+      const [value, description, timestamp] = expense.split(',') 
+      return {
+        value: +value,
+        description,
+        date: new Date(+timestamp),
+      }
+    })
   },
 }
 

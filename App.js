@@ -1,20 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import { AppContainer } from './App.styles'
 import { storageService } from './services/storage'
-import { Loading, TotalContainer } from './components'
+import { 
+  ExpenseForm, 
+  ExpenseSubmit,
+  Loading, 
+  ResetButton, 
+  TotalContainer 
+} from './components'
 
 export default function App() {
   const [partnerExpenses, setPartnerExpenses] = useState(null)
   const [selfExpenses, setSelfExpenses] = useState(null)
+  const [formValue, setFormValue] = useState()
+  const [formDescription, setFormDescription] = useState()
   const loading = !partnerExpenses || !selfExpenses
 
   // Initialize data
-  useEffect(() => {
+  useEffect(loadExpenses, [])
+
+  function loadExpenses() {
     storageService.getExpenses().then(({ partnerExpenses, selfExpenses }) => {
       setPartnerExpenses(partnerExpenses)
       setSelfExpenses(selfExpenses)
     })
-  }, [])
+  }
+
+  function resetExpenses() {
+    storageService.resetExpenses().then(loadExpenses)
+  }
+
+  function addPartnerExpense() {
+    storageService
+      .addPartnerExpense(formValue, formDescription)
+      .then(loadExpenses)
+  }
+
+  function addSelfExpense() {
+    storageService
+      .addSelfExpense(formValue, formDescription)
+      .then(loadExpenses)
+  }
 
   return (
     <AppContainer>      
@@ -22,7 +48,22 @@ export default function App() {
         partnerExpenses={partnerExpenses}
         selfExpenses={selfExpenses}
       />}
+
       {loading && <Loading />}
+
+      <ExpenseForm 
+        value={`${formValue}`}
+        description={formDescription}
+        setValue={setFormValue}
+        setDescription={setFormDescription}
+      />
+
+      <ExpenseSubmit 
+        submitPartner={addPartnerExpense}
+        submitSelf={addSelfExpense}
+      />
+
+      <ResetButton reset={resetExpenses} />
     </AppContainer>
   );
 }
