@@ -42,8 +42,8 @@ const storageService = {
   },
 
   async getExpenses() {
-    const partnerExpenses = await AsyncStorage.getItem(storageKey.partnerExpenses)
-    const selfExpenses = await AsyncStorage.getItem(storageKey.selfExpenses)
+    const partnerExpenses = await AsyncStorage.getItem(storageKey.partnerExpenses) || []
+    const selfExpenses = await AsyncStorage.getItem(storageKey.selfExpenses) || []
 
     return { partnerExpenses, selfExpenses }
   },
