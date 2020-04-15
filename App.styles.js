@@ -1,5 +1,4 @@
-import React from 'react'
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
@@ -9,9 +8,3 @@ export const styles = StyleSheet.create({
     paddingTop: 80
   },
 });
-
-export function AppContainer({ children }) {
-  return <View style={styles.container}>
-    {children}
-  </View>
-}

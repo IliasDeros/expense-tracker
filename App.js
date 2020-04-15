@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Keyboard, TouchableWithoutFeedback } from 'react-native'
-import { AppContainer } from './App.styles'
+import { Keyboard, TouchableWithoutFeedback, View } from 'react-native'
+import { styles } from './App.styles'
 import { expenseService } from './services/expense'
 import { 
   ExpenseForm, 
@@ -58,33 +58,35 @@ export default function App() {
   
   if (loading) {
     return (
-      <AppContainer>
-         <Loading />
-      </AppContainer>
+      <View style={styles.container}>
+        <Loading />
+      </View>
     )
   }
 
   return (
-    <AppContainer>
-      <ExpenseForm 
-        value={formValue}
-        description={formDescription}
-        setValue={setFormValue}
-        setDescription={setFormDescription}
-      />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <ExpenseForm 
+          value={formValue}
+          description={formDescription}
+          setValue={setFormValue}
+          setDescription={setFormDescription}
+        />
 
-      <ExpenseSubmit 
-        submitPartner={addPartnerExpense}
-        submitSelf={addSelfExpense}
-      />  
+        <ExpenseSubmit 
+          submitPartner={addPartnerExpense}
+          submitSelf={addSelfExpense}
+        />  
 
-      <TotalContainer 
-        partnerExpenses={partnerExpenses}
-        selfExpenses={selfExpenses}
-      />
+        <TotalContainer 
+          partnerExpenses={partnerExpenses}
+          selfExpenses={selfExpenses}
+        />
 
-      <ResetButton reset={resetExpenses} />
-    </AppContainer>
+        <ResetButton reset={resetExpenses} />
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
