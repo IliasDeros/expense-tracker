@@ -1,5 +1,6 @@
 import React from 'react'
-import { Alert, Button } from 'react-native'
+import { Alert } from 'react-native'
+import { StyledButton } from './styles'
 
 function promptReset(onPress) {
   Alert.alert(
@@ -13,7 +14,7 @@ function promptReset(onPress) {
 }
 
 export function ResetButton({ reset }) {
-  return <Button 
+  return <StyledButton 
     title="Reset"
     onPress={() => promptReset(reset)}
   />

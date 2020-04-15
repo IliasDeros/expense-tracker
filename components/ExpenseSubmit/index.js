@@ -1,15 +1,14 @@
 import React from 'react'
-import { Button } from 'react-native'
-import { Container } from './styles'
+import { StyledButton, Container } from './styles'
 
 export function ExpenseSubmit({ submitPartner, submitSelf }) {
   return (
     <Container>
-      <Button 
+      <StyledButton 
         title="You paid"
         onPress={submitSelf}
       />
-      <Button 
+      <StyledButton 
         title="They paid"
         onPress={submitPartner}
       />
