@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { storageKey } from './constant'
 import { now } from './utils'
 
-const storageService = {
+const expenseService = {
   /** SET */
   async addExpense(value, description) {
     if (value > 0) {
@@ -94,4 +94,4 @@ const storageService = {
   },
 }
 
-export { storageService }
+export { expenseService }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AppContainer } from './App.styles'
-import { storageService } from './services/storage'
+import { expenseService } from './services/expense'
 import { 
   ExpenseForm, 
   ExpenseSubmit,
@@ -20,24 +20,24 @@ export default function App() {
   useEffect(loadExpenses, [])
 
   function loadExpenses() {
-    storageService.getExpenses().then(({ partnerExpenses, selfExpenses }) => {
+    expenseService.getExpenses().then(({ partnerExpenses, selfExpenses }) => {
       setPartnerExpenses(partnerExpenses)
       setSelfExpenses(selfExpenses)
     })
   }
 
   function resetExpenses() {
-    storageService.resetExpenses().then(loadExpenses)
+    expenseService.resetExpenses().then(loadExpenses)
   }
 
   function addPartnerExpense() {
-    storageService
+    expenseService
       .addPartnerExpense(formValue, formDescription)
       .then(loadExpenses)
   }
 
   function addSelfExpense() {
-    storageService
+    expenseService
       .addSelfExpense(formValue, formDescription)
       .then(loadExpenses)
   }
