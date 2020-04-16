@@ -1,10 +1,11 @@
 import React from 'react'
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import AnimatedNumber from 'react-native-animated-number'
 import { colors } from '../../App.styles'
+import { oneMillion, oneThousand } from '../constant'
 
 const { width, height } = Dimensions.get('window')
-const circleSize = Math.min(width, height) * 0.75
+export const circleSize = Math.min(width, height) * 0.75
 
 const circleStyle = {
   display: 'flex',
@@ -17,7 +18,6 @@ const circleStyle = {
   height: circleSize,
   paddingTop: circleSize * 0.2,
   paddingBottom: circleSize * 0.2,
-  marginBottom: circleSize * 0.15
 }
 
 const textStyle = {
@@ -71,21 +71,37 @@ export function NeutralCircle({ children }) {
   </View>
 }
 
-export function NegativeCircle({ children, touchableProps }) {
-  return <TouchableOpacity style={styles.negativeCircle} {...touchableProps}>
+export function NegativeCircle({ children }) {
+  return <View style={styles.negativeCircle}>
     {children}
-  </TouchableOpacity>
+  </View>
 }
 
-export function PositiveCircle({ children, touchableProps }) {
-  return <TouchableOpacity style={styles.positiveCircle} {...touchableProps}>
+export function PositiveCircle({ children }) {
+  return <View style={styles.positiveCircle}>
     {children}
-  </TouchableOpacity>
+  </View>
 }
 
 export function StyledTotal({ total }) {
+  const valueFormatter = (value) => {
+    let suffix = ''
+    let display = value
+    
+    if (display > oneMillion) {
+      display /= oneMillion
+      suffix = 'm'
+    }
+    
+    if (display > oneThousand) {
+      display /= oneThousand
+      suffix = 'k'
+    }
+
+    return (display / 100).toFixed(2) + suffix
+  }
   return <AnimatedNumber 
-    formatter={value => (value / 100).toFixed(2)}
+    formatter={valueFormatter}
     style={styles.textTotal} 
     value={total * 100} 
   />
