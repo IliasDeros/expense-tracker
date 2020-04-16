@@ -46,6 +46,33 @@ const expenseService = {
     return true
   },
 
+  async updateDescription(expense, newDescription) {
+    const { selfExpenses, partnerExpenses } = await this.getExpenses()
+    let existingSelfExpense = selfExpenses.find(x => +x.date === +expense.date)
+    let existingPartnerExpense = partnerExpenses.find(x => +x.date === +expense.date)
+
+    if (existingSelfExpense) {
+      const index = selfExpenses.findIndex(x => x === existingSelfExpense)
+      const newExpenses = [...selfExpenses]
+      newExpenses.splice(index, 1, {
+        ...existingSelfExpense,
+        description: newDescription
+      })
+      return this.setExpenses(storageKey.selfExpenses, newExpenses)
+    }
+
+    if (existingPartnerExpense) {
+      const index = partnerExpenses.findIndex(x => x === existingPartnerExpense)
+      const newExpenses = [...partnerExpenses]
+      newExpenses.splice(index, 1, {
+        ...existingPartnerExpense,
+        description: newDescription
+      })
+      return this.setExpenses(storageKey.partnerExpenses, newExpenses)
+    }
+
+  },
+
   async resetExpenses() {
     try {
       await SecureStore.setItemAsync(storageKey.partnerExpenses, '')

@@ -81,8 +81,11 @@ export const ItemValue = ({ children }) => (
   <View style={styles.valueContainer}>{children}</View>
 )
 
-export const SelfExpense = ({ children, ...props }) => (
-  <TouchableOpacity {...props} style={styles.selfExpense}>{children}</TouchableOpacity>
+export const SelfExpense = ({ children, item, touchableProps = {} }) => (
+  <TouchableOpacity 
+    onLongPress={() => touchableProps.onLongPress && touchableProps.onLongPress(item) }
+    style={styles.selfExpense}
+  >{children}</TouchableOpacity>
 )
 
 export const PartnerExpense = ({ children, ...props }) => (

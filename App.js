@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, Keyboard, TouchableWithoutFeedback, View } from 'react-native'
+import Prompt from 'react-native-modal-prompt'
 import { styles } from './App.styles'
 import { expenseService } from './services/expense'
 import { 
   ExpenseForm, 
   ExpenseSubmit,
   HistoryContainer,
-  Loading, 
-  ResetButton, 
+  Loading,
   TotalContainer 
 } from './components'
 
@@ -23,10 +23,18 @@ function promptReset(onPress) {
 }
 
 export default function App() {
+  // Tracking stored expenses
   const [partnerExpenses, setPartnerExpenses] = useState(null)
   const [selfExpenses, setSelfExpenses] = useState(null)
+
+  // Submitting an expense
   const [formValue, setFormValue] = useState('')
   const [formDescription, setFormDescription] = useState()
+
+  // Modifying history item description
+  const [showItemPrompt, setShowItemPrompt] = useState(false)
+  const [promptedItem, setPromptedItem] = useState()
+
   const loading = !partnerExpenses || !selfExpenses
 
   // Initialize data
@@ -68,6 +76,11 @@ export default function App() {
     setFormDescription('')
     Keyboard.dismiss()
   }
+
+  function promptHistoryModal(item){
+    setShowItemPrompt(true)
+    setPromptedItem(item)
+  }
   
   if (loading) {
     return (
@@ -104,6 +117,35 @@ export default function App() {
         <HistoryContainer 
           partnerExpenses={partnerExpenses} 
           selfExpenses={selfExpenses} 
+          touchableProps={{
+            onLongPress: (item) => promptHistoryModal(item)
+          }}
+        />
+
+        <Prompt 
+          visible={showItemPrompt}
+          title="Update description"
+          placeholder="Expense description"
+          defaultValue={promptedItem.description}
+          operation={[
+            {
+              text: 'Cancel',
+              color: '#000',
+              onPress() {
+                setShowItemPrompt(false)
+                return true
+              }
+            },
+            {
+              text: 'Ok',
+              onPress: (value) => {
+                setShowItemPrompt(false)
+                expenseService.updateDescription(promptedItem, value).then(loadExpenses)
+                return true
+              }
+                
+            }
+          ]}
         />
       </View>
     </TouchableWithoutFeedback>

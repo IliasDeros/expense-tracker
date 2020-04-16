@@ -18,7 +18,7 @@ function componentForType({ type }) {
   return Component
 }
 
-export function HistoryItem({ expense }) {
+export function HistoryItem({ expense, touchableProps }) {
   const ItemContainer = componentForType(expense)
 
   const { 
@@ -27,7 +27,7 @@ export function HistoryItem({ expense }) {
     value
   } = expense
   return (
-    <ItemContainer>
+    <ItemContainer item={expense} touchableProps={touchableProps}>
       <ItemDate>
         <Text style={styles.itemText}>{formatDate(date)}</Text>
       </ItemDate>

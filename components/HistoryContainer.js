@@ -10,12 +10,12 @@ function mergeExpenses(partner, self) {
 
 const sortDateDesc = (a, b) => b.date - a.date
 
-export function HistoryContainer({ partnerExpenses, selfExpenses }) {
+export function HistoryContainer({ partnerExpenses, selfExpenses, touchableProps }) {
   // Merge expenses in 1 array, denoting partner expenses
   const mergedExpenses = mergeExpenses(partnerExpenses, selfExpenses)
 
   // sort expenses by date
   const sortedExpenses = mergedExpenses.sort(sortDateDesc)
 
-  return <History expenses={sortedExpenses} />
+  return <History expenses={sortedExpenses} touchableProps={touchableProps} />
 }

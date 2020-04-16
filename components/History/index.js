@@ -4,7 +4,7 @@ import { Container } from './styles'
 import { HistoryItem } from './HistoryItem'
 import { NoExpenses } from './NoExpenses'
 
-export function History({ expenses }) {
+export function History({ expenses, touchableProps }) {
   if (expenses.length === 0) {
     return <NoExpenses />
   }
@@ -12,8 +12,8 @@ export function History({ expenses }) {
   return <Container>
     <FlatList 
       data={expenses}
-      renderItem={({ item }) => <HistoryItem expense={item} />}
-      keyExtractor={item => +item.date}
+      renderItem={({ item }) => <HistoryItem expense={item} touchableProps={touchableProps} />}
+      keyExtractor={item => `${+item.date}`}
     />
   </Container>
 }

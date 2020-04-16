@@ -4318,6 +4318,11 @@ react-native-animated-number@^1.1.1:
   resolved "https://registry.yarnpkg.com/react-native-animated-number/-/react-native-animated-number-1.1.1.tgz#09d0ac108d24620d6a8515eea2f7d6643ba3d62a"
   integrity sha512-DctpQ+h9wStPGmUeMkCuph7RQ828KcYXDgQtXQ3JtoRTK9kkv2vVwaNsefGXP8JBHtwAHoKLCegQxAdi1LhdbQ==
 
+react-native-modal-prompt@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-modal-prompt/-/react-native-modal-prompt-0.0.2.tgz#615a7907f5ed41ce43e490293911d14c4380ac51"
+  integrity sha512-WjwE8zjf/3xOzuhApoihV10ROJ5Gw+40oQHuLVEMzz7M7H8LCVO39IkuauFUazqHpGAd7IJTKxEMQirWNYgVUA==
+
 react-native-svg@^12.1.0:
   version "12.1.0"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-12.1.0.tgz#acfe48c35cd5fca3d5fd767abae0560c36cfc03d"
