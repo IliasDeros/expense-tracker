@@ -16,7 +16,7 @@ const expenseService = {
     const { partnerExpenses } = await this.getExpenses()
     const newExpenses = partnerExpenses.concat(
       [{
-        value, description, timestamp: now()
+        value, description, date: now()
       }]
     )
 
@@ -27,7 +27,7 @@ const expenseService = {
     const { selfExpenses } = await this.getExpenses()
     const newExpenses = selfExpenses.concat(
       [{
-        value, description, timestamp: now()
+        value, description, date: now()
       }]
     )
     
@@ -57,12 +57,6 @@ const expenseService = {
     return true
   },
 
-  formatExpenses(expenses) {
-    return expenses.map(({ value, description, date }) => 
-      `${value},${description},${+date}`
-    ).join(';')
-  },
-
   /** GET */
   async getExpenses() {
     const partnerExpenses = await this.getExpense(storageKey.partnerExpenses)
@@ -80,6 +74,13 @@ const expenseService = {
     const expense = this.parseExpense(expenseString)
 
     return expense
+  },
+
+  /** Serialization */
+  formatExpenses(expenses) {
+    return expenses.map(({ value, description, date }) => 
+      `${value.toFixed(2)},${description},${+date}`
+    ).join(';')
   },
 
   parseExpense(stored) {

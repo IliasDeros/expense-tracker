@@ -5,6 +5,7 @@ import { expenseService } from './services/expense'
 import { 
   ExpenseForm, 
   ExpenseSubmit,
+  HistoryContainer,
   Loading, 
   ResetButton, 
   TotalContainer 
@@ -54,6 +55,7 @@ export default function App() {
   function resetForm() {
     setFormValue(0)
     setFormDescription('')
+    Keyboard.dismiss()
   }
   
   if (loading) {
@@ -85,6 +87,11 @@ export default function App() {
         />
 
         <ResetButton reset={resetExpenses} />
+
+        <HistoryContainer 
+          partnerExpenses={partnerExpenses} 
+          selfExpenses={selfExpenses} 
+        />
       </View>
     </TouchableWithoutFeedback>
   );

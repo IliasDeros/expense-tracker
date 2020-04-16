@@ -1,8 +1,9 @@
 import React from 'react'
 import { Dimensions, StyleSheet, Text, View } from 'react-native'
+import { colors } from '../../App.styles'
 
 const { width, height } = Dimensions.get('window')
-const circleSize = Math.min(width, height) * 0.7
+const circleSize = Math.min(width, height) * 0.75
 
 const circleStyle = {
   display: 'flex',
@@ -10,7 +11,7 @@ const circleStyle = {
   justifyContent: 'space-between',
   alignItems: 'center',
   borderRadius: circleSize,
-  borderWidth: 5,
+  borderWidth: 10,
   width: circleSize,
   height: circleSize,
   paddingTop: circleSize * 0.2,
@@ -22,8 +23,8 @@ const textStyle = {
 }
 
 const colorNeutral = 'gray'
-const colorNegative = 'red'
-const colorPositive = 'lightgray'
+const colorNegative = colors.partnerRed
+const colorPositive = colors.selfGreen
 
 const styles = StyleSheet.create({
   neutralCircle: {
