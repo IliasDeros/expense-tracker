@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, Text, View } from 'react-native'
 import { colors } from '../../App.styles'
 
 const expense = {
@@ -11,12 +11,14 @@ const itemContainer = {
   padding: 16,
 }
 
+export const spaceUnderCircle = 46
+
 export const styles = StyleSheet.create({
   container: {
     alignSelf: 'stretch',
     borderColor: 'gray',
     borderTopWidth: 1,
-    marginTop: 8,
+    marginTop: spaceUnderCircle,
     flex: 1,
   },
 
@@ -53,6 +55,14 @@ export const styles = StyleSheet.create({
     ...expense,
     backgroundColor: colors.partnerRed,
   },
+
+  noExpensesContainer: {
+    marginTop: spaceUnderCircle
+  },
+
+  noExpensesText: {
+    color: 'gray'
+  }
 })
 
 export const Container = ({ children }) => (
@@ -77,4 +87,14 @@ export const SelfExpense = ({ children, ...props }) => (
 
 export const PartnerExpense = ({ children, ...props }) => (
   <TouchableOpacity {...props} style={styles.partnerExpense}>{children}</TouchableOpacity>
+)
+
+export const NoExpensesContainer = ({ children }) => (
+  <View style={styles.noExpensesContainer}>
+    {children}
+  </View>
+)
+
+export const NoexpensesText = ({ children }) => (
+  <Text style={styles.noExpensesText}>{children}</Text>
 )
