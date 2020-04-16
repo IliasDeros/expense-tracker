@@ -33,7 +33,7 @@ export function Total({ total, touchableProps }) {
   
   return <Circle touchableProps={touchableProps}>
     <TextComponent>{text}</TextComponent>
-    <StyledTotal total={display.toFixed(2)}/>
+    <StyledTotal total={display}/>
     <TextComponent>$CAD</TextComponent>
   </Circle>
 }
