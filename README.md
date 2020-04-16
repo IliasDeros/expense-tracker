@@ -10,7 +10,7 @@ marking the expenses and tracking the total instead of doing transfers each time
 
 ### Features
 - [x] Track total debt between you and your partner
-- [ ] Retain a history of dated transactions
+- [x] Retain a history of transactions
 - [ ] Sync storage between you and your partner
 
 ### Development
