@@ -95,7 +95,10 @@ export default function App() {
         <TotalContainer 
           partnerExpenses={partnerExpenses}
           selfExpenses={selfExpenses}
-          touchableProps={{ onLongPress: () => promptReset(resetExpenses) }}
+          touchableProps={{ 
+            onPress: Keyboard.dismiss,
+            onLongPress: () => promptReset(resetExpenses),
+          }}
         />
 
         <HistoryContainer 

@@ -86,7 +86,7 @@ export function PositiveCircle({ children }) {
 export function StyledTotal({ total }) {
   const valueFormatter = (value) => {
     let suffix = ''
-    let display = value
+    let display = value / 100
     
     if (display > oneMillion) {
       display /= oneMillion
@@ -98,7 +98,7 @@ export function StyledTotal({ total }) {
       suffix = 'k'
     }
 
-    return (display / 100).toFixed(2) + suffix
+    return display.toFixed(2) + suffix
   }
   return <AnimatedNumber 
     formatter={valueFormatter}
