@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { colors } from '../../App.styles'
 
 const { width, height } = Dimensions.get('window')
@@ -16,6 +16,7 @@ const circleStyle = {
   height: circleSize,
   paddingTop: circleSize * 0.2,
   paddingBottom: circleSize * 0.2,
+  marginBottom: circleSize * 0.15
 }
 
 const textStyle = {
@@ -69,16 +70,16 @@ export function NeutralCircle({ children }) {
   </View>
 }
 
-export function NegativeCircle({ children }) {
-  return <View style={styles.negativeCircle}>
+export function NegativeCircle({ children, touchableProps }) {
+  return <TouchableOpacity style={styles.negativeCircle} {...touchableProps}>
     {children}
-  </View>
+  </TouchableOpacity>
 }
 
-export function PositiveCircle({ children }) {
-  return <View style={styles.positiveCircle}>
+export function PositiveCircle({ children, touchableProps }) {
+  return <TouchableOpacity style={styles.positiveCircle} {...touchableProps}>
     {children}
-  </View>
+  </TouchableOpacity>
 }
 
 export function StyledTotal({ total }) {

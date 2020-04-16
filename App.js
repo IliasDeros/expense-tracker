@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Keyboard, TouchableWithoutFeedback, View } from 'react-native'
+import { Alert, Keyboard, TouchableWithoutFeedback, View } from 'react-native'
 import { styles } from './App.styles'
 import { expenseService } from './services/expense'
 import { 
@@ -10,6 +10,17 @@ import {
   ResetButton, 
   TotalContainer 
 } from './components'
+
+function promptReset(onPress) {
+  Alert.alert(
+    'Clear expenses',
+    'Reset all expenses?',
+    [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'Confirm reset', style: 'destructive', onPress }
+    ]
+  )
+}
 
 export default function App() {
   const [partnerExpenses, setPartnerExpenses] = useState(null)
@@ -33,7 +44,7 @@ export default function App() {
   }
 
   function addPartnerExpense() {
-    if (isNaN(formValue)) { return }    
+    if (!formValue || isNaN(formValue)) { return }    
 
     expenseService
       .addPartnerExpense(+formValue, formDescription)
@@ -43,7 +54,7 @@ export default function App() {
   }
 
   function addSelfExpense() {
-    if (isNaN(formValue)) { return }      
+    if (!formValue || isNaN(formValue)) { return }      
 
     expenseService
       .addSelfExpense(+formValue, formDescription)
@@ -84,9 +95,8 @@ export default function App() {
         <TotalContainer 
           partnerExpenses={partnerExpenses}
           selfExpenses={selfExpenses}
+          touchableProps={{ onLongPress: () => promptReset(resetExpenses) }}
         />
-
-        <ResetButton reset={resetExpenses} />
 
         <HistoryContainer 
           partnerExpenses={partnerExpenses} 

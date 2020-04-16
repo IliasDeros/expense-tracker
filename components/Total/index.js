@@ -12,7 +12,7 @@ const neutralTotal = "You guys are clear!"
 const positiveTotal = "Your partner owes you:"
 const negativeTotal = "You owe your partner:"
 
-export function Total({ total }) {
+export function Total({ total, touchableProps }) {
   let Circle = NeutralCircle
   let TextComponent = NeutralText
   let display = total
@@ -31,7 +31,7 @@ export function Total({ total }) {
     text = positiveTotal
   }
   
-  return <Circle>
+  return <Circle touchableProps={touchableProps}>
     <TextComponent>{text}</TextComponent>
     <StyledTotal total={display.toFixed(2)}/>
     <TextComponent>$CAD</TextComponent>
