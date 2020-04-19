@@ -33,7 +33,7 @@ export default function App() {
 
   // Modifying history item description
   const [showItemPrompt, setShowItemPrompt] = useState(false)
-  const [promptedItem, setPromptedItem] = useState()
+  const [promptedItem, setPromptedItem] = useState({})
 
   const loading = !partnerExpenses || !selfExpenses
 
@@ -118,7 +118,7 @@ export default function App() {
           partnerExpenses={partnerExpenses} 
           selfExpenses={selfExpenses} 
           touchableProps={{
-            onLongPress: (item) => promptHistoryModal(item)
+            onPress: (item) => promptHistoryModal(item)
           }}
         />
 

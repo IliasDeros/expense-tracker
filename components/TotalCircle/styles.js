@@ -91,9 +91,7 @@ export function StyledTotal({ total }) {
     if (display > oneMillion) {
       display /= oneMillion
       suffix = 'm'
-    }
-    
-    if (display > oneThousand) {
+    } else if (display > oneThousand) {
       display /= oneThousand
       suffix = 'k'
     }
